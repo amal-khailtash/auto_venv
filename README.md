@@ -23,6 +23,7 @@ Download and bundle a copy of **[auto_venv.py](https://github.com/amal-khailtash
 2. requires (list[str])      : list of requirements to install
 3. fancy    (bool, optional) : fancy/ANSI printout.  (Defaults to False)
 4. quiet    (bool, optional) : quiet (no) messages.  (Defaults to False)
+5. dot_pth  (bool, optional) : create .pth link to the .venv  (Defaults to False)
 
 ```python
 from pathlib import Path
@@ -36,7 +37,7 @@ __requires__ = [
     "pyyaml==6.0.1",
 ]
 
-auto_venv.init(__filename__, __requires__, True, False)
+auto_venv.init(__filename__, __requires__, True, False, True)
 ```
 
 Import required packages, and continue with the rest of your script.
@@ -66,27 +67,32 @@ To avoid collision with other users, scripts, ... the name of the virtual enviro
     USER        is the username
     FILENAME    is the basename of the script without full path
 
+## VSCode and Intellisense
+
+To be able to debug/navigate the installed packages, **auto_venv** will create a **.pth** file under /home/${USER}/.local/lib/python<VERSION>/site-packages/ with name **venv_\<UUID>_\<USER>_\<FILENAME>.pth** that points to the created virtual environment.  This will add the path to the virtual environment to the PYTHON_PATH.  This way, VSCode and other IDEs would be able to find the packages installed in this virtual enviroment.  If multiple dependencies with different versions are installed in different virtual envirnment, which version will be picked up is not very clear.  For this reason, only enable this option (**dot_pth** or **AUTO_VENV_DOT_PTH**) when debugging using IDE.
+
 ## Environment variables
 
 **auto_venv** uses the following environment variables to override the fancy/quiet arguments.
 
-    VENV_AUTO_ROOT    path to location for creating the virtual environment, default is /tmp
+    VENV_AUTO_ROOT       path to location for creating the virtual environment, default is /tmp
 
-    AUTO_VENV_FANCY   fancy is set to True if set to '1', 'y', 'yes' or 'true', otherwise False
-    AUTO_VENV_QUIET   quiet is set to True if set to '1', 'y', 'yes' or 'true', otherwise False
+    AUTO_VENV_FANCY      fancy is set to True if set to '1', 'y', 'yes' or 'true', otherwise False
+    AUTO_VENV_QUIET      quiet is set to True if set to '1', 'y', 'yes' or 'true', otherwise False
+    AUTO_VENV_DOT_PTH    dot_pth is set to True if set to '1', 'y', 'yes' or 'true', otherwise False
 
 ## Example output
 
 First run (fancy=True, quiet=False)
 
 ```bash
-$ test.py
+$ example.py
 ╭────────────────────────────────────────────────────────────────────────────────
 │ ➜ First run or some requirements were not found.  Reinstalling ...
 │ ➜ Creating virtual environment ...
-│     '/tmp/.venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_test.py'
+│     '/tmp/.venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py'
 │ ➜ Setting up PYTHONPATH ...
-│     '/home/${USER}/.local/lib/python3.12/site-packages/venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_test.py.pth'
+│     '/home/${USER}/.local/lib/python3.12/site-packages/venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py.pth'
 │ ➜ Upgrading 'pip' ...
 │ ➜ Installing requirements:
 │   ✓ beautifulsoup4==4.12.3
@@ -104,10 +110,10 @@ header: Find, install and publish Python packages with the Python Package Index
 Runs after ():
 
 ```bash
-$ test.py
+$ example.py
 ╭────────────────────────────────────────────────────────────────────────────────
 │ ➜ Virtual environment already exists ...
-│     '/tmp/.venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_test.py'
+│     '/tmp/.venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py'
 │ ➜ All requirements are met.
 │ ➜ Continuing with the script ...
 ╰────────────────────────────────────────────────────────────────────────────────

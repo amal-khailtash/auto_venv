@@ -1,6 +1,6 @@
 """Automatically Creates Virtual Environment and Installs Requirements."""
 
-def init(filename: str, requires: list[str], fancy=False, quiet=False) -> None:
+def init(filename: str, requires: list[str], fancy=False, quiet=False, dot_pth=False) -> None:
     """Create virtual environment and install dependencies.
 
     Args:
@@ -8,6 +8,7 @@ def init(filename: str, requires: list[str], fancy=False, quiet=False) -> None:
         requires (list[str])      : list of requirements to install
         fancy    (bool, optional) : fancy/ANSI printout.  (Defaults to False)
         quiet    (bool, optional) : quiet (no) messages.  (Defaults to False)
+        dot_pth  (bool, optional) : create .pth link to the .venv  (Defaults to False)
     """
 
     import getpass
@@ -44,6 +45,9 @@ def init(filename: str, requires: list[str], fancy=False, quiet=False) -> None:
 
     if "AUTO_VENV_QUIET" in os.environ:
         quiet = (os.environ.get("AUTO_VENV_QUIET", "False").lower() in ("1", "y", "yes", "true"))
+
+    if "AUTO_VENV_DOT_PTH" in os.environ:
+        dot_pth = (os.environ.get("AUTO_VENV_DOT_PTH", "False").lower() in ("1", "y", "yes", "true"))
 
     prefix = "│ " if fancy else ""
     arrow = "➜" if fancy else ">"
@@ -95,14 +99,15 @@ def init(filename: str, requires: list[str], fancy=False, quiet=False) -> None:
 
         run([sys.executable, "-m", "venv", "" if all_requirements_met else "--clear", venv_path], check=True, start_new_session=True)
 
-        # Create .pth to point to this venv
-        pth_file = Path(f"{site.USER_SITE}") / f"{venv_fullname.removeprefix(".")}.pth"
+        if dot_pth:
+            # Create .pth to point to this venv
+            pth_file = Path(f"{site.USER_SITE}") / f"{venv_fullname.removeprefix(".")}.pth"
 
-        msg(f"{prefix}{arrow} Setting up PYTHONPATH ...")
-        msg(f"{prefix}    '{pth_file}'")
+            msg(f"{prefix}{arrow} Setting up PYTHONPATH ...")
+            msg(f"{prefix}    '{pth_file}'")
 
-        pth_file.parent.mkdir(exist_ok=True, parents=True)
-        pth_file.write_text(f"{site_packages_path}")
+            pth_file.parent.mkdir(exist_ok=True, parents=True)
+            pth_file.write_text(f"{site_packages_path}")
 
         msg(f"{prefix}{arrow} Upgrading 'pip' ...")
 
