@@ -1,8 +1,6 @@
 <!-- https://www.iconfinder.com/icons/4518857/python_icon -->
 <center><img src="docs/images/favicon.png"></center>
 
-# auto_venv: All-in-one Automatic Virtual-Environment Creation + Requirements Installation using pip.
-
 # Empower your script with **auto_venv**: Say Goodbye to Manual Setup or Install!
 
 With **auto_venv**, effortlessly automate virtual environment creation and pip-installs for your script's requirements.  No more tedious manual setups, no more hassle with requirement installations, and certainly, no extra steps for executing your script.  No need to install simple scripts, just copy your python files and run.
