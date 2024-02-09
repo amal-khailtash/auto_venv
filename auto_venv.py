@@ -1,5 +1,7 @@
 """Automatically Creates Virtual Environment and Installs Requirements."""
 
+__version__ = "0.1.0"
+
 def init(filename: str, requires: list[str], fancy=False, quiet=False, dot_pth=False) -> None:
     """Create virtual environment and install dependencies.
 
