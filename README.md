@@ -53,13 +53,13 @@ soup = bs4.BeautifulSoup(requests.get("https://pypi.org").content, "html.parser"
 print(yaml.dump({"header": soup.find("h1").get_text()}))
 ```
 
-> :memo: **Note:** that because not all our imports are at the top of the script, we need to add **# noqa: E402** to the end of each import to ignore Lint error: <u>**Module level import not at top of the file**</u>.
+> :memo: **Note:** because not all our imports are at the top of the script, we need to add `# noqa: E402` to the end of each import to ignore Lint error: `Module level import not at top of the file`.
 
 ## Virtual Environment
 
-By default virtual environments are created under /tmp, which is NOT persistent and will be removed upon machine reboot.  You can change the default location by setting **VENV_AUTO_ROOT** environment variable.
+By default virtual environments are created under `/tmp``, which is NOT persistent and will be removed upon machine reboot.  You can change the default location by setting **VENV_AUTO_ROOT** environment variable.
 
-To avoid collision with other users, scripts, ... the name of the virtual environment is: **.venv_\<UUID>_\<USER>_\<FILENAME>**
+To avoid collision with other users, scripts, ... the name of the virtual environment is: `.venv_<UUID>_<USER>_<FILENAME>`
 
     UUID        unique id generated based on the full script path (filename) passed to init
     USER        is the username
@@ -67,7 +67,7 @@ To avoid collision with other users, scripts, ... the name of the virtual enviro
 
 ## VSCode and Intellisense
 
-To be able to debug/navigate the installed packages, **auto_venv** will create a **.pth** file under /home/${USER}/.local/lib/python<VERSION>/site-packages/ with name **venv_\<UUID>_\<USER>_\<FILENAME>.pth** that points to the created virtual environment.  This will add the path to the virtual environment to the PYTHON_PATH.  This way, VSCode and other IDEs would be able to find the packages installed in this virtual enviroment.  If multiple dependencies with different versions are installed in different virtual envirnment, which version will be picked up is not very clear.  For this reason, only enable this option (**dot_pth** or **AUTO_VENV_DOT_PTH**) when debugging using IDE.
+To be able to debug/navigate the installed packages, **auto_venv** will create a `.pth` file under `/home/${USER}/.local/lib/python<VERSION>/site-packages/` with name `venv_\<UUID>_\<USER>_\<FILENAME>.pth` that points to the created virtual environment.  This will add the path to the virtual environment to the PYTHON_PATH.  This way, VSCode and other IDEs would be able to find the packages installed in this virtual enviroment.  If multiple dependencies with different versions are installed in different virtual envirnment, which version will be picked up is not very clear.  For this reason, only enable this option, **dot_pth** or **AUTO_VENV_DOT_PTH**, when debugging using IDE.
 
 ## Environment variables
 
@@ -81,7 +81,7 @@ To be able to debug/navigate the installed packages, **auto_venv** will create a
 
 ## Example output
 
-First run (fancy=True, quiet=False)
+First run (fancy=True, quiet=False, dot_pth=True)
 
 ```bash
 $ example.py
@@ -90,7 +90,7 @@ $ example.py
 │ ➜ Creating virtual environment ...
 │     '/tmp/.venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py'
 │ ➜ Setting up PYTHONPATH ...
-│     '/home/${USER}/.local/lib/python3.12/site-packages/venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py.pth'
+│     '/home/${USER}/.local/lib/python3.12/site-packages/venv_dafede3c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py.pth'
 │ ➜ Upgrading 'pip' ...
 │ ➜ Installing requirements:
 │   ✓ beautifulsoup4==4.12.3
@@ -105,13 +105,13 @@ yaml version     : 6.0.1
 header: Find, install and publish Python packages with the Python Package Index
 ```
 
-Runs after ():
+Later runs (fancy=True, quiet=False, dot_pth=True):
 
 ```bash
 $ example.py
 ╭────────────────────────────────────────────────────────────────────────────────
 │ ➜ Virtual environment already exists ...
-│     '/tmp/.venv_da65983c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py'
+│     '/tmp/.venv_dafede3c-2c58-5629-94e6-e157b6565a0d_${USER}_example.py'
 │ ➜ All requirements are met.
 │ ➜ Continuing with the script ...
 ╰────────────────────────────────────────────────────────────────────────────────
@@ -122,7 +122,7 @@ yaml version     : 6.0.1
 header: Find, install and publish Python packages with the Python Package Index
 ```
 
-# Notes
+# :memo: Notes
 
 Once the requirements are installed, if you update the requirement versions, there is no automatic way to check if the versions have changed.  You just need to delete the virtual environment (and .pth file) and rerun the script with the new requirements.
 
