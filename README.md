@@ -15,13 +15,15 @@ Use a recent Python 3 (3.6+) version:
 #!/bin/env python3
 ```
 
-Download and bundle a copy of **[auto_venv.py](https://github.com/amal-khailtash/auto_venv/raw/main/auto_venv.py)** with your main script.  Import **auto_venv** and call its init function passing:
+Download and bundle a copy of **[auto_venv.py](https://github.com/amal-khailtash/auto_venv/raw/main/auto_venv.py)** with your main script.  Import **auto_venv** and call its init function passing these arguments:
 
+```
 1. filename (str)            : calling script's filename including full path.
 2. requires (list[str])      : list of requirements to install
 3. fancy    (bool, optional) : fancy/ANSI printout.  (Defaults to False)
 4. quiet    (bool, optional) : quiet (no) messages.  (Defaults to False)
 5. dot_pth  (bool, optional) : create .pth link to the .venv  (Defaults to False)
+```
 
 ```python
 from pathlib import Path
@@ -67,7 +69,7 @@ To avoid collision with other users, scripts, ... the name of the virtual enviro
 
 ## VSCode and Intellisense
 
-To be able to debug/navigate the installed packages, **auto_venv** will create a `.pth` file under `/home/${USER}/.local/lib/python<VERSION>/site-packages/` with name `venv_\<UUID>_\<USER>_\<FILENAME>.pth` that points to the created virtual environment.  This will add the path to the virtual environment to the PYTHON_PATH.  This way, VSCode and other IDEs would be able to find the packages installed in this virtual enviroment.  If multiple dependencies with different versions are installed in different virtual envirnment, which version will be picked up is not very clear.  For this reason, only enable this option, **dot_pth** or **AUTO_VENV_DOT_PTH**, when debugging using IDE.
+To be able to debug/navigate the installed packages, **auto_venv** will create a `.pth` file under `/home/${USER}/.local/lib/python<VERSION>/site-packages/` with name `venv_<UUID>_<USER>_<FILENAME>.pth` that points to the created virtual environment.  This will add the path to the virtual environment to the PYTHON_PATH.  This way, VSCode and other IDEs would be able to find the packages installed in this virtual enviroment.  If multiple dependencies with different versions are installed in different virtual envirnment, which version will be picked up is not very clear.  For this reason, only enable this option, **dot_pth** or **AUTO_VENV_DOT_PTH**, when debugging using IDE.
 
 ## Environment variables
 
