@@ -124,8 +124,12 @@ yaml version     : 6.0.1
 header: Find, install and publish Python packages with the Python Package Index
 ```
 
+# Notes
+
+Once the requirements are installed, if you update the requirement versions, there is no automatic way to check if the versions have changed.  You just need to delete the virtual environment (and .pth file) and rerun the script with the new requirements.
+
 # References
 * Inspied by [pip.wtf](https://pip.wtf/)
 * [PEP 582 - Python local packages directory](https://peps.python.org/pep-0582/)
-* [venv - Creation of virtual environments](https://docs.python.org/3/library/venv.html)
 * [pip - Installing Python Modules](https://docs.python.org/3/installing/index.html)
+* [venv - Creation of virtual environments](https://docs.python.org/3/library/venv.html)
