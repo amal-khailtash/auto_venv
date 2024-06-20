@@ -130,6 +130,10 @@ Once the requirements are installed, if you update the requirement versions, the
 
 # References
 * Inspied by [pip.wtf](https://pip.wtf/)
-* [PEP 582 - Python local packages directory](https://peps.python.org/pep-0582/)
 * [pip - Installing Python Modules](https://docs.python.org/3/installing/index.html)
 * [venv - Creation of virtual environments](https://docs.python.org/3/library/venv.html)
+* [Inline Script Metadata](https://packaging.python.org/en/latest/specifications/inline-script-metadata/)
+* [PEP 723 – Inline script metadata](https://peps.python.org/pep-0723/)
+* [PEP 704 – Require virtual environments by default for package installers](https://peps.python.org/pep-0704/)
+* [REJECTED: PEP 582 - Python local packages directory](https://peps.python.org/pep-0582/)
+* [REJECTED: PEP 722 – Dependency specification for single-file scripts](https://peps.python.org/pep-0722/)
